@@ -2,8 +2,8 @@ import codecs
 import regex
 import os.path
 #Text files to get Sin / Virtues from
-trait_sources=["E:\\SteamLibrary\\SteamApps\\common\\Crusader Kings III\\game\\common\\traits\\00_traits.txt"] #At the moment, all TT traits would be blacklisted as they are explicitly religious (Conqueror)
-tenets_source = "mz_core_tenets_1.8.1_1.2.31.txt"
+trait_sources=["E:\\SteamLibrary\\SteamApps\\common\\Crusader Kings III\\game\\common\\traits\\00_traits.txt"]
+tenets_source = "mz_core_tenets_1.9.0.3_5.18.23.txt"
 
 doctrine_output_folder="..\\common\\religion\\doctrines"
 events_output_folder="..\\events\\religion_events\\"
@@ -33,10 +33,10 @@ virtue_sin_strength = [[["","","",""],[3,2],1],[["strong","_strong"," great", " 
 #These traits will not be used as Sins / Virtues even if they would normally be allowed
 trait_blacklist_hidden = ["early_great_pox"] #Early Great Pox looks like lover's pox and should be treated identically. Special code adds both when Lover's Pox is selected
 trait_blacklist_crime_standard = ["adulterer","fornicator","incestuous","kinslayer_1","kinslayer_2","kinslayer_3","murderer","sodomite"] #Crime doctrines are implicitly sins (in vanilla) or virtues (if celebrated) and these ones do not appear if accepted.
-trait_blacklist_indistinguishable = ["depressed_1","depressed_gemetic","lunatic_1","lunatic_genetic","possessed_1","possessed_genetic"] #All current Group Equivalents are genetic and non-genetic variants of the same mental trait, since there's no way to tell these apart in world block taking them individually.
+trait_blacklist_indistinguishable = ["depressed_1","depressed_genetic","lunatic_1","lunatic_genetic","possessed_1","possessed_genetic"] #All current Group Equivalents are genetic and non-genetic variants of the same mental trait, since there's no way to tell these apart in world block taking them individually.
 trait_blacklist_crime_special = ["cannibal","excommunicated"] #Cannibal is blacklisted gemerally (despite being a special crime doctrine that appears even if accepted ) becasue the Tenet that permits it also makes it a strong virtue already. #Makes no sense for excommunicated to be a sin on top of it's intrinsic nature and doesn't really work as a Virtue since it's not possible to have in faiths that might think it virtuous (ie ones without Communion).
 trait_blacklist_unique = ["saoshyant","savior","chakravarti","greatest_of_khans"] #These are traits that only one person can have and so don't make sense as virtues/sins (they should be folded in with equivalent more general traits if relevant though (eg Descendant traits))
-trait_blacklist_religious = ["pilgrim","devoted","sayyid","saoshyant_descendant","divine_blood","blood_of_prophet","faith_warrior","saint","order_member","heresiarch","crusader_king","paragon","consecrated_blood"]  #These already have strong religious implications in ways that make them unfitting to be sins or virtues
+trait_blacklist_religious = ["hajjaj","pilgrim","devoted","sayyid","saoshyant_descendant","divine_blood","blood_of_prophet","faith_warrior","saint","order_member","heresiarch","crusader_king","paragon","consecrated_blood"]  #These already have strong religious implications in ways that make them unfitting to be sins or virtues
 trait_blacklist = []
 trait_blacklist.extend(trait_blacklist_hidden)
 trait_blacklist.extend(trait_blacklist_crime_standard)
@@ -48,7 +48,7 @@ trait_blacklist.extend(trait_blacklist_religious)
 
 trait_group_blacklist = ["kinslayer"]
 trait_group_equivalent_blacklist = []
-trait_virtue_blacklist = ["bastard","denounced","disinherited"] #Bastard doesn't make sense as a virtue because it only appears if you have a negative doctrine. #Dynasty condemnation doesn't make sense as a virtue because it works based on scorn
+trait_virtue_blacklist = ["bastard","denounced","disinherited","witch","deviant"] #Bastard doesn't make sense as a virtue because it only appears if you have a negative doctrine. #Dynasty condemnation doesn't make sense as a virtue because it works based on scorn. #Witch is already handled by the game as a virtue. #As is Deviant (though it's perhaps too restricted)
 trait_group_virtue_blacklist = []
 trait_group_equivalent_virtue_blacklist = []
 trait_sin_blacklist = ["deviant","witch","reincarnation","child_of_concubine_female","child_of_concubine_male"]  #Deviant, Witch & Cannibal are special crime doctrines that can appear even if accepted. So blacklist as sins (should be handled by Crime Doctrine) but allow as Virtues. #Reincaranted should not be a sin because it can only appears in faiths that should approve. #Child of Concubine should not be a sin because it only appears if Concubines are accepted.
@@ -237,7 +237,7 @@ def main():
                                 f.write( "\t" + "\t" + "is_shown = {" + "\n")
                                 f.write( "\t"+ "\t" + "\t" + "always = yes" + "\n")
                                 if (doctrine_type == "sin" or not (trait in trait_sin_blacklist)) and (doctrine_type == "virtue" or (not trait in trait_virtue_blacklist)):
-                                    f.write( "\t"+ "\t" + "\t" + "NOT = { flag:" + doctrine_opposite_name + " = { is_in_list = selected_doctrines } }" + "\n")
+                                    f.write( "\t"+ "\t" + "\t" + "NOT = { doctrine:" + doctrine_opposite_name + " = { is_in_list = selected_doctrines } }" + "\n")
                                 f.write( "\t" + "\t" + "}" + "\n")
                                 f.write( "\t" + "\t" + "can_pick = {" + "\n")
                                 f.write( "\t" + "\t" +  "\t" + "always = yes" + "\n") #Default evaluation is and so this is effectively blank 
@@ -263,57 +263,57 @@ def main():
                                             if max(trait_groups[trait_group]["levels"].keys()) == 3: #3 Levels, fixed
                                                 if level == 1:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines } }" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines } }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
                                                 if level == 2:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }"+ "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }"+ "\n")
                                                     f.write( "\t" + "\t" +  "\t" + "}" + "\t" + "\n")
                                                 if level == 3:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + " = { is_in_list = selected_doctrines } }" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + " = { is_in_list = selected_doctrines } }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
                                             elif max(trait_groups[trait_group]["levels"].keys()) == 4: #4 Levels, fixed
                                                 if level == 1:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOR = {" +  "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][4] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][4] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "}" +  "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
                                                 if level == 2:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
                                                 if level == 3:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][4] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][4] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
                                                 if level == 4:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOR = {" +  "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "}" +  "\n")
-                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
                                             f.write( "\t" + "\t" +  "\t" +"}" + "\n")
                                         
                                         #f.write( "\t"+ "\t" + "\t" + "AND = {" + "\n") 
-                                        #f.write( "\t"+ "\t" + "\t" + "NOT = { flag:" + "doctrine_" + doctrine_type+ "_" + trait_group + "_strong" + " = { is_in_list = selected_doctrines } }" + "\n") #Not strong group
-                                        groupStrongQualifier =  "\t"+ "\t" + "\t" + "\t" + "\t" + "flag:" + "doctrine_" + doctrine_type+ "_" + trait_group + " = { is_in_list = selected_doctrines }" + "\n"
+                                        #f.write( "\t"+ "\t" + "\t" + "NOT = { doctrine:" + "doctrine_" + doctrine_type+ "_" + trait_group + "_strong" + " = { is_in_list = selected_doctrines } }" + "\n") #Not strong group
+                                        groupStrongQualifier =  "\t"+ "\t" + "\t" + "\t" + "\t" + "doctrine:" + "doctrine_" + doctrine_type+ "_" + trait_group + " = { is_in_list = selected_doctrines }" + "\n"
                                         #f.write( "\t"+ "\t" + "\t" + "}" + "\n")
                                 if strength[0][0] == "strong":
                                     f.write( "\t" + "\t" +  "\t" +"custom_description = {" + "\n")
                                     f.write( "\t" + "\t" +  "\t" + "\t" +"text = doctrine_requires_"+doctrine_type+"_trigger" +"\n" )
                                     f.write("\t"+ "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                    f.write("\t"+ "\t" + "\t" +  "\t" + "\t" + "flag:" + "doctrine_" + doctrine_type + "_" + trait + " = { is_in_list = selected_doctrines }" + "\n")
+                                    f.write("\t"+ "\t" + "\t" +  "\t" + "\t" + "doctrine:" + "doctrine_" + doctrine_type + "_" + trait + " = { is_in_list = selected_doctrines }" + "\n")
                                     if (groupStrongQualifier):
                                         f.write(groupStrongQualifier)
                                     f.write("\t"+ "\t" + "\t" + "\t" + "}" + "\n")
@@ -368,7 +368,7 @@ def main():
                                 f.write( "\t" + "\t" + "is_shown = {" + "\n")
                                 f.write( "\t" + "\t" +  "\t" + "always = yes" + "\n") #Default evaluation is and so this is effectively blank
                                 if (doctrine_type == "sin" or not (trait_group in trait_group_sin_blacklist)) and (doctrine_type == "virtue" or (not trait_group in trait_group_virtue_blacklist)):
-                                    f.write( "\t"+ "\t" + "\t" + "NOT = { flag:" + doctrine_opposite_name + " = { is_in_list = selected_doctrines } }" + "\n")
+                                    f.write( "\t"+ "\t" + "\t" + "NOT = { doctrine:" + doctrine_opposite_name + " = { is_in_list = selected_doctrines } }" + "\n")
                                 f.write( "\t" + "\t" + "}" + "\n")
                                 f.write( "\t" + "\t" + "can_pick = {" + "\n")
                                 f.write( "\t" + "\t" +  "\t" + "always = yes" + "\n") #Default evaluation is and so this is effectively blank 
@@ -377,18 +377,18 @@ def main():
                                 for trait in trait_groups[trait_group]["levels"].values():
                                     #f.write( "\t"+ "\t" + "\t" + "AND = {" + "\n") 
                                     if strength[0][0] == "strong":
-                                        individualStrongQualifiers = individualStrongQualifiers +  "\t"+ "\t" + "\t" + "\t" + "\t" + "\t" + "flag:" + "doctrine_" + doctrine_type+ "_" + trait  + " = { is_in_list = selected_doctrines }" + "\n"
+                                        individualStrongQualifiers = individualStrongQualifiers +  "\t"+ "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:" + "doctrine_" + doctrine_type+ "_" + trait  + " = { is_in_list = selected_doctrines }" + "\n"
                                         f.write( "\t" + "\t" + "\t" +"custom_description = {" + "\n")
                                         f.write( "\t" + "\t" + "\t" + "\t" + "text = doctrine_incompatible_strong_"+doctrine_type+"_trigger" +"\n" )
-                                        f.write( "\t" + "\t" + "\t" + "\t" + "NOT = { flag:" + "doctrine_" + doctrine_type+ "_" + trait + "_strong" + " = { is_in_list = selected_doctrines } }" + "\n") #Not strong trait
+                                        f.write( "\t" + "\t" + "\t" + "\t" + "NOT = { doctrine:" + "doctrine_" + doctrine_type+ "_" + trait + "_strong" + " = { is_in_list = selected_doctrines } }" + "\n") #Not strong trait
                                         f.write( "\t" + "\t" + "\t" + "}" + "\n")
 
                                         if (doctrine_type == "sin" or not (trait_group in trait_group_sin_blacklist)) and (doctrine_type == "virtue" or (not trait_group in trait_group_virtue_blacklist)):                                        
                                             f.write( "\t" + "\t" + "\t" +"custom_description = {" + "\n")
                                             f.write( "\t" + "\t" + "\t" + "\t" + "text = doctrine_incompatible_weak_"+opposite_doctrine_type(doctrine_type)+"_trigger" +"\n" )
                                             f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                            f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { flag:" + "doctrine_" + opposite_doctrine_type(doctrine_type)+ "_" + trait + " = { is_in_list = selected_doctrines } }" + "\n") #Can't add if weak opposite trait .....
-                                            f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:" + "doctrine_" + opposite_doctrine_type(doctrine_type)+ "_" + trait + "_strong" + " = { is_in_list = selected_doctrines }" + "\n") #... unless also strong opposite trait
+                                            f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { doctrine:" + "doctrine_" + opposite_doctrine_type(doctrine_type)+ "_" + trait + " = { is_in_list = selected_doctrines } }" + "\n") #Can't add if weak opposite trait .....
+                                            f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:" + "doctrine_" + opposite_doctrine_type(doctrine_type)+ "_" + trait + "_strong" + " = { is_in_list = selected_doctrines }" + "\n") #... unless also strong opposite trait
                                             f.write( "\t" + "\t" + "\t" + "\t" +  "}" + "\n")
                                             f.write( "\t" + "\t" + "\t" +"}" + "\n")
 
@@ -396,10 +396,10 @@ def main():
                                         f.write( "\t" + "\t" + "\t" +"custom_description = {" + "\n")
                                         f.write( "\t" + "\t" + "\t" + "\t" + "text = doctrine_incompatible_weak_"+doctrine_type+"_trigger" +"\n" )
                                         f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n") 
-                                        f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { flag:" + "doctrine_" + doctrine_type + "_" + trait + " = { is_in_list = selected_doctrines } }" + "\n") #Can't add if weak trait .....
+                                        f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { doctrine:" + "doctrine_" + doctrine_type + "_" + trait + " = { is_in_list = selected_doctrines } }" + "\n") #Can't add if weak trait .....
                                         f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "OR = {" +"\n") 
-                                        f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "flag:" + "doctrine_" + doctrine_type + "_" + trait + "_strong" + " = { is_in_list = selected_doctrines }" + "\n") #... unless also strong trait
-                                        f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "flag:" + "doctrine_" + doctrine_type + "_" + trait_group + "_strong" + " = { is_in_list = selected_doctrines }" + "\n") #...  or strong group
+                                        f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:" + "doctrine_" + doctrine_type + "_" + trait + "_strong" + " = { is_in_list = selected_doctrines }" + "\n") #... unless also strong trait
+                                        f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:" + "doctrine_" + doctrine_type + "_" + trait_group + "_strong" + " = { is_in_list = selected_doctrines }" + "\n") #...  or strong group
                                         f.write(" \t" + "\t" + "\t" + "\t" + "\t" + "}" + "\n") 
                                         f.write(" \t" + "\t" + "\t" + "\t"+ "}" + "\n") 
                                         f.write( "\t" + "\t" + "\t" + "}" + "\n")
@@ -409,7 +409,7 @@ def main():
                                     f.write( "\t" + "\t" + "\t" + "custom_description = {" + "\n")
                                     f.write( "\t" + "\t" + "\t" + "\t" +"text = doctrine_requires_"+doctrine_type+"_trigger" + "\n" )
                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
-                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "flag:" + "doctrine_" + doctrine_type+ "_" + trait_group + " = { is_in_list = selected_doctrines }" + "\n")
+                                    f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:" + "doctrine_" + doctrine_type+ "_" + trait_group + " = { is_in_list = selected_doctrines }" + "\n")
                                     individualStrongQualifiers = individualStrongQualifiers + "\t" + "\t" + "\t" + "\t" + "\t" + "}" + "\n"
                                     f.write(individualStrongQualifiers)
                                     f.write( "\t"+ "\t" + "\t" + "\t" + "}" + "\n")
@@ -458,14 +458,14 @@ def main():
                                 f.write( "\t" + "\t" + "\t" + "}" + "\n")
                                 f.write( "\t" + "\t" + "}" + "\n")
                                 f.write( "\t" + "\t" + "is_shown = {" + "\n")
-                                f.write( "\t"+ "\t" + "\t" + "\t" + "NOT = { flag:" + doctrine_opposite_name + " = { is_in_list = selected_doctrines } }" + "\n")
+                                f.write( "\t"+ "\t" + "\t" + "\t" + "NOT = { doctrine:" + doctrine_opposite_name + " = { is_in_list = selected_doctrines } }" + "\n")
                                 f.write( "\t" + "\t" + "}" + "\n")
                                 f.write( "\t" + "\t" + "can_pick = {" + "\n")
                                 f.write( "\t" + "\t" +  "\t" + "always = yes" + "\n") #Default evaluation is and so this is effectively blank 
                                 if strength[0][0] == "strong":
                                     f.write( "\t" + "\t" + "\t" + "custom_description = {" + "\n")
                                     f.write( "\t" + "\t" + "\t" + "\t" + "text = doctrine_requires_"+doctrine_type+"_trigger" + "\n" )
-                                    f.write( "\t" + "\t" + "\t" + "\t" + "flag:" + "doctrine_" + doctrine_type+ "_" + trait_group_equivalent + " = { is_in_list = selected_doctrines }" + "\n")
+                                    f.write( "\t" + "\t" + "\t" + "\t" + "doctrine:" + "doctrine_" + doctrine_type+ "_" + trait_group_equivalent + " = { is_in_list = selected_doctrines }" + "\n")
                                     f.write( "\t" + "\t" + "\t" + "}" + "\n")
                                 f.write( "\t" + "\t" + "}" + "\n")
                                 f.write( "\t" + "\t" + "traits = {" + "\n")
@@ -564,8 +564,6 @@ def main():
                                 f.write(" doctrine_"+doctrine_type+"_"+trait+strength[0][1]+"_name:0 \"$trait_"+"child_of_concubine"+"$"+strength[0][3]+"\""+"\n")
                             elif trait == "shieldmaiden":
                                 f.write(" doctrine_"+doctrine_type+"_"+trait+strength[0][1]+"_name:0 \"$trait_"+"shieldmaiden_female"+"$"+strength[0][3]+"\""+"\n")
-                            elif trait == "mystic_1":
-                                f.write(" doctrine_"+doctrine_type+"_"+trait+strength[0][1]+"_name:0 \"$trait_"+"mystic_female_1"+"$"+strength[0][3]+"\""+"\n")
                             else:
                                 f.write(" doctrine_"+doctrine_type+"_"+trait+strength[0][1]+"_name:0 \"$trait_"+trait+"$"+strength[0][3]+"\""+"\n")
                             f.write(" doctrine_"+doctrine_type+"_"+trait+strength[0][1]+"_desc:0 \"$doctrine_"+doctrine_type+"_"+trait+"_name$ should be a"+ strength[0][2] +" ["+doctrine_type+"|E]\""+"\n")

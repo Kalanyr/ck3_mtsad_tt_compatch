@@ -1,1 +1,1 @@
-﻿#Suppress so that Tenets appear in the correct order
+﻿#Override to get tenet order correct

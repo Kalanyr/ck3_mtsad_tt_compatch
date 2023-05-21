@@ -1,8 +1,0 @@
-mz_major_decisions_east_europe.txt 
-
-z_mz_activity_decisions.txt
-- Paradox did some general cleanup to make the limit checks neater
-- Moved the hunt cost to an external trigger 
-
-
- 
