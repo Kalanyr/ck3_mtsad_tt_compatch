@@ -1,0 +1,146 @@
+﻿namespace = faith_creation_mrsad
+
+faith_creation_mrsad.001 = {
+	hidden = yes
+
+	trigger = {
+		always = yes
+	}
+
+	immediate = {
+		faith = {
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_1
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_1
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_2
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_2
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_3
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_3
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_4
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_4
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_5
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_5
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_6
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_6
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_7
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_7
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_8
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_8
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_9
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_9
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_10
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_10
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_11
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_11
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_12
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_12
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_13
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_13
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_14
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_14
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_15
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_15
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_16
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_16
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_17
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_17
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_18
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_18
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_19
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_19
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_20
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_20
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_21
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_21
+			}
+			if = {
+				limit = {
+					has_doctrine = tenet_aa_mrsad_empty_22
+				}
+				remove_doctrine = tenet_aa_mrsad_empty_22
+			}
+		}
+	}
+}

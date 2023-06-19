@@ -1,0 +1,39 @@
+﻿mrsad_virtues_sins_setup_effect = {
+	if = {
+		limit = { # Double-check to make certain this should happen
+			NOT = { exists = global_var:mrsad_flag_virtue_sins_setup }
+		}
+		set_global_variable = { # Add global variable to prevent this from happening more than once
+			name = mrsad_flag_virtue_sins_setup
+			value = yes
+		}
+		every_religion_global = {
+			every_faith = {
+				add_doctrine = doctrine_sin_mrsad_empty_1
+				add_doctrine = doctrine_sin_mrsad_empty_2
+				add_doctrine = doctrine_sin_mrsad_empty_3
+				add_doctrine = doctrine_sin_mrsad_empty_4
+				add_doctrine = doctrine_sin_mrsad_empty_5
+				add_doctrine = doctrine_sin_mrsad_empty_6
+				add_doctrine = doctrine_sin_mrsad_empty_7
+				add_doctrine = doctrine_sin_mrsad_empty_8
+				add_doctrine = doctrine_sin_mrsad_empty_9
+				add_doctrine = doctrine_sin_mrsad_empty_10
+				add_doctrine = doctrine_sin_mrsad_empty_11
+				add_doctrine = doctrine_sin_mrsad_empty_12
+				add_doctrine = doctrine_virtue_mrsad_empty_1
+				add_doctrine = doctrine_virtue_mrsad_empty_2
+				add_doctrine = doctrine_virtue_mrsad_empty_3
+				add_doctrine = doctrine_virtue_mrsad_empty_4
+				add_doctrine = doctrine_virtue_mrsad_empty_5
+				add_doctrine = doctrine_virtue_mrsad_empty_6
+				add_doctrine = doctrine_virtue_mrsad_empty_7
+				add_doctrine = doctrine_virtue_mrsad_empty_8
+				add_doctrine = doctrine_virtue_mrsad_empty_9
+				add_doctrine = doctrine_virtue_mrsad_empty_10
+				add_doctrine = doctrine_virtue_mrsad_empty_11
+				add_doctrine = doctrine_virtue_mrsad_empty_12
+			}
+		}
+	}
+}
