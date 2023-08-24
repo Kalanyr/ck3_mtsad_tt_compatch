@@ -1,0 +1,894 @@
+﻿disburse_murder_wedding_host_rewards = {
+	# for the loc
+	save_scope_as = root_scope
+	if = {
+		limit = {
+			has_variable = murder_feast_liege_var
+		}
+		add_prestige_level = -3
+	}
+	if = {
+		limit = {
+			has_variable = murder_feast_head_of_faith_var
+		}
+		add_piety_level = -3
+	}
+	if = {
+		limit = {
+			culture = { #if this is a cultural thing, people don't really love it
+				has_cultural_tradition = tradition_wedding_ceremonies
+			}
+		}
+		add_prestige = major_prestige_loss
+	}
+	if = {
+		limit = {
+			OR = { 
+				faith = { has_doctrine = tenet_ritual_celebrations }
+				faith = { has_doctrine = mz_tenet_children_of_perun }
+				faith = { has_doctrine = mz_tenet_animism }
+			}
+		}
+		add_piety = major_piety_loss
+	}
+	if = {
+		limit = { has_variable = bloody_wedding_murder_family_var } #you've killed EVERYONE
+		if = {
+			limit = {
+				faith = { #if you can get excommunicated by kinslaying we do so
+					has_doctrine_parameter = excommunication_active
+					NOR = {
+						has_doctrine = doctrine_kinslaying_accepted
+						has_doctrine = doctrine_kinslaying_shunned
+					}
+				}
+			}
+			add_trait_force_tooltip = excommunicated
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_bloody_wedding_excommunication
+					tags = { completed }
+					show_in_conclusion = yes
+					character = scope:host
+					
+					scope:host = {
+						add_excommunication_actual_effect_5_years_version = yes
+					}
+				}
+			}
+		}
+		else = {
+			add_piety_level = -1
+		}
+		scope:activity = {
+			add_activity_log_entry = {
+				key = host_bloody_wedding_family_kill
+				tags = { completed }
+				# this line below adds the entry to the Effects section of the conclusion UI
+				show_in_conclusion = yes
+				character = scope:host
+				
+				scope:host = {
+					add_dread = monumental_dread_gain
+					add_character_modifier = {
+						modifier = gwedding_hosted_murder_wedding_modifier
+						years = 15
+					}
+					set_variable = just_widowed_var
+				}
+			}
+		}
+	}
+	else = { #Rewards for a "normal" feast
+		if = { #if you failed your attempt it doesn't look great
+			limit = { has_variable = bloody_murder_fail }
+			add_prestige = minor_prestige_loss
+			if = {
+				limit = {
+					scope:activity = {
+						has_activity_option = {
+							category = wedding_option_entertainment
+							option = wedding_entertainment_good
+						}
+					}
+				}
+				custom_tooltip = host_wedding_entertainment_good
+				scope:activity = {
+					add_activity_log_entry = {
+						key = host_wedding_entertainment_good
+						tags = { completed }
+						score = 100
+						# this line below adds the entry to the Effects section of the conclusion UI
+						show_in_conclusion = yes
+						character = scope:host
+
+						scope:host = { add_prestige = minor_prestige_gain }
+						every_attending_character = {
+							limit = {
+								NOR = {
+									this = scope:host
+									this = scope:spouse_1
+								}
+							}
+							custom = custom.every_activity_guest
+							add_prestige = minor_prestige_gain
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:activity = {
+						has_activity_option = {
+							category = wedding_option_entertainment
+							option = wedding_entertainment_normal
+						}
+					}
+				}
+				custom_tooltip = host_wedding_entertainment_normal
+				scope:activity = {
+					add_activity_log_entry = {
+						key = host_wedding_entertainment_normal
+						tags = { completed }
+						score = 100
+						# this line below adds the entry to the Effects section of the conclusion UI
+						show_in_conclusion = yes
+						character = scope:root_scope
+
+						scope:host = { add_prestige = miniscule_prestige_gain }
+					}
+				}
+			}
+
+			# Food
+			if = {
+				limit = {
+					scope:activity = {
+						has_activity_option = {
+							category = wedding_option_food
+							option = wedding_food_good
+						}
+					}
+				}
+				custom_tooltip = host_wedding_food_good
+				scope:activity = {
+					add_activity_log_entry = {
+						key = host_wedding_food_good
+						tags = { completed }
+						score = 100
+						# this line below adds the entry to the Effects section of the conclusion UI
+						show_in_conclusion = yes
+						character = scope:host
+
+						every_attending_character = {
+							limit = { NOT = { this = scope:host } }
+							custom = custom.every_attending_character
+							add_opinion = {
+								target = scope:host
+								modifier = impressed_opinion
+								opinion = 10
+							}
+						}
+						every_attending_character = {
+							limit = {
+								NOR = {
+									this = scope:host
+									this = scope:spouse_1
+								}
+							}
+							custom = custom.every_activity_guest
+							# Guest opinion from host and spouses
+							if = {
+								limit = {
+									scope:host = { is_ai = yes }
+								}
+								custom_tooltip = came_to_my_wedding_opinion_host_high
+								hidden_effect = {
+									reverse_add_opinion = {
+										target = scope:host
+										modifier = came_to_my_wedding_opinion
+										opinion = 5
+									}
+								}
+							}
+							if = {
+								limit = {
+									scope:spouse_1 = { is_ai = yes }
+								}
+								custom_tooltip = came_to_my_wedding_opinion_spouse_1_high
+								hidden_effect = {
+									reverse_add_opinion = {
+										target = scope:spouse_1
+										modifier = came_to_my_wedding_opinion
+										opinion = 5
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:activity = {
+						has_activity_option = {
+							category = wedding_option_food
+							option = wedding_food_normal
+						}
+					}
+				}
+				custom_tooltip = host_wedding_food_normal
+				scope:activity = {
+					add_activity_log_entry = {
+						key = host_wedding_food_normal
+						tags = { completed }
+						score = 100
+						# this line below adds the entry to the Effects section of the conclusion UI
+						show_in_conclusion = yes
+						character = scope:host
+
+						every_attending_character = {
+							limit = { NOT = { this = scope:host } }
+							custom = custom.every_attending_character
+							add_opinion = {
+								target = scope:host
+								modifier = impressed_opinion
+								opinion = 5
+							}
+						}
+					}
+				}
+			}
+
+			# Decoration
+			if = {
+				limit = {
+					scope:activity = {
+						has_activity_option = {
+							category = wedding_option_decoration
+							option = wedding_decoration_good
+						}
+					}
+				}
+				custom_tooltip = host_wedding_decoration_good
+				scope:activity = {
+					add_activity_log_entry = {
+						key = host_wedding_decoration_good
+						tags = { completed }
+						score = 100
+						# this line below adds the entry to the Effects section of the conclusion UI
+						show_in_conclusion = yes
+						character = scope:host
+
+						scope:host = {
+							every_vassal_or_below = {
+								limit = { has_vassal_stance = courtly }
+								custom = every_courtly_vassal
+								add_opinion = {
+									modifier = hosted_wedding_opinion
+									target = root
+									opinion = 10
+								}
+							}
+						}
+					}
+				}
+			}
+			else_if = {
+				limit = {
+					scope:activity = {
+						has_activity_option = {
+							category = wedding_option_decoration
+							option = wedding_decoration_normal
+						}
+					}
+				}
+				custom_tooltip = host_wedding_decoration_normal
+				scope:activity = {
+					add_activity_log_entry = {
+						key = host_wedding_decoration_normal
+						tags = { completed }
+						score = 100
+						# this line below adds the entry to the Effects section of the conclusion UI
+						show_in_conclusion = yes
+						character = scope:host
+
+						root = {
+							every_vassal_or_below = {
+								limit = { has_vassal_stance = courtly }
+								custom = every_courtly_vassal
+								add_opinion = {
+									modifier = hosted_wedding_opinion
+									target = root
+									opinion = 5
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else_if = { #if you've killed your target you get these
+			limit = {
+				NOT = { has_variable = bloody_murder_fail }
+				NOT = { has_variable = bloody_wedding_murder_family_var }
+			}
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_bloody_wedding_solo_kill
+					tags = { completed }
+					# this line below adds the entry to the Effects section of the conclusion UI
+					show_in_conclusion = yes
+					character = scope:host
+					
+					scope:host = {
+						add_dread = massive_dread_gain
+						add_character_modifier = {
+							modifier = gwedding_hosted_murder_wedding_modifier
+							years = 10
+						}
+						set_variable = just_widowed_var
+					}
+				}
+			}
+		}
+		# Regular wedding hosting rewards - smaller 
+		if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = wedding_option_entertainment
+						option = wedding_entertainment_good
+					}
+				}
+			}
+			custom_tooltip = host_wedding_entertainment_good
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_wedding_entertainment_good
+					tags = { completed }
+					score = 100
+					# this line below adds the entry to the Effects section of the conclusion UI
+					show_in_conclusion = yes
+					character = scope:host
+
+					scope:host = { add_prestige = minor_prestige_gain }
+					every_attending_character = {
+						limit = {
+							NOR = {
+								this = scope:host
+								this = scope:spouse_1
+							}
+						}
+						custom = custom.every_activity_guest
+						add_prestige = minor_prestige_gain
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = wedding_option_entertainment
+						option = wedding_entertainment_normal
+					}
+				}
+			}
+			custom_tooltip = host_wedding_entertainment_normal
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_wedding_entertainment_normal
+					tags = { completed }
+					score = 100
+					# this line below adds the entry to the Effects section of the conclusion UI
+					show_in_conclusion = yes
+					character = scope:root_scope
+
+					scope:host = { add_prestige = miniscule_prestige_gain }
+				}
+			}
+		}
+
+		# Food
+		if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = wedding_option_food
+						option = wedding_food_good
+					}
+				}
+			}
+			custom_tooltip = host_wedding_food_good
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_wedding_food_good
+					tags = { completed }
+					score = 100
+					# this line below adds the entry to the Effects section of the conclusion UI
+					show_in_conclusion = yes
+					character = scope:host
+
+					every_attending_character = {
+						limit = { NOT = { this = scope:host } }
+						custom = custom.every_attending_character
+						add_opinion = {
+							target = scope:host
+							modifier = impressed_opinion
+							opinion = 10
+						}
+					}
+					every_attending_character = {
+						limit = {
+							NOR = {
+								this = scope:host
+								this = scope:spouse_1
+							}
+						}
+						custom = custom.every_activity_guest
+						# Guest opinion from host and spouses
+						if = {
+							limit = {
+								scope:host = { is_ai = yes }
+							}
+							custom_tooltip = came_to_my_wedding_opinion_host_high
+							hidden_effect = {
+								reverse_add_opinion = {
+									target = scope:host
+									modifier = came_to_my_wedding_opinion
+									opinion = 5
+								}
+							}
+						}
+						if = {
+							limit = {
+								scope:spouse_1 = { is_ai = yes }
+							}
+							custom_tooltip = came_to_my_wedding_opinion_spouse_1_high
+							hidden_effect = {
+								reverse_add_opinion = {
+									target = scope:spouse_1
+									modifier = came_to_my_wedding_opinion
+									opinion = 5
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = wedding_option_food
+						option = wedding_food_normal
+					}
+				}
+			}
+			custom_tooltip = host_wedding_food_normal
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_wedding_food_normal
+					tags = { completed }
+					score = 100
+					# this line below adds the entry to the Effects section of the conclusion UI
+					show_in_conclusion = yes
+					character = scope:host
+
+					every_attending_character = {
+						limit = { NOT = { this = scope:host } }
+						custom = custom.every_attending_character
+						add_opinion = {
+							target = scope:host
+							modifier = impressed_opinion
+							opinion = 5
+						}
+					}
+				}
+			}
+		}
+
+		# Decoration
+		if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = wedding_option_decoration
+						option = wedding_decoration_good
+					}
+				}
+			}
+			custom_tooltip = host_wedding_decoration_good
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_wedding_decoration_good
+					tags = { completed }
+					score = 100
+					# this line below adds the entry to the Effects section of the conclusion UI
+					show_in_conclusion = yes
+					character = scope:host
+
+					scope:host = {
+						every_vassal_or_below = {
+							limit = { has_vassal_stance = courtly }
+							custom = every_courtly_vassal
+							add_opinion = {
+								modifier = hosted_wedding_opinion
+								target = root
+								opinion = 10
+							}
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = wedding_option_decoration
+						option = wedding_decoration_normal
+					}
+				}
+			}
+			custom_tooltip = host_wedding_decoration_normal
+			scope:activity = {
+				add_activity_log_entry = {
+					key = host_wedding_decoration_normal
+					tags = { completed }
+					score = 100
+					# this line below adds the entry to the Effects section of the conclusion UI
+					show_in_conclusion = yes
+					character = scope:host
+
+					root = {
+						every_vassal_or_below = {
+							limit = { has_vassal_stance = courtly }
+							custom = every_courtly_vassal
+							add_opinion = {
+								modifier = hosted_wedding_opinion
+								target = root
+								opinion = 5
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	# # Vassal Opinion
+	every_vassal_or_below = {
+		limit = {
+			OR = {
+				has_trait = torturer
+				has_trait = sadistic
+				has_trait = vengeful
+				has_trait = callous
+			}
+		}
+		custom = every_cruel_vassal
+		add_opinion = {
+			modifier = respect_opinion
+			target = scope:host
+			opinion = 20
+		}
+	}
+	every_vassal_or_below = {
+		limit = {
+			NOR = {
+				has_trait = torturer
+				has_trait = sadistic
+				has_trait = vengeful
+				has_trait = callous
+			}
+		}
+		custom = wedding_every_other_vassal
+		add_opinion = {
+			modifier = suspicion_opinion
+			target = scope:host
+			opinion = -25
+		}
+	}
+}
+
+disburse_murder_feast_activity_rewards = {
+	if = {
+		limit = {
+			has_variable = murder_feast_liege_var
+		}
+		scope:activity = {
+			add_activity_log_entry = {
+				key = murder_feast_liege_kill_tt
+				tags = { completed }
+				character = scope:root_scope
+				show_in_conclusion = yes
+				score = 50
+				
+				root = {
+					add_prestige_level = -2
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			has_variable = murder_feast_head_of_faith_var
+		}
+		scope:activity = {
+			add_activity_log_entry = {
+				key = murder_feast_hof_kill_tt
+				tags = { completed }
+				character = scope:root_scope
+				show_in_conclusion = yes
+				score = 50
+				
+				root = {
+					add_piety_level = -2
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			OR = { 
+				faith = { has_doctrine = tenet_ritual_celebrations }
+				faith = { has_doctrine = mz_tenet_children_of_perun }
+				faith = { has_doctrine = mz_tenet_animism }
+			}
+		}
+		add_piety = medium_piety_loss
+	}
+	if = {
+		limit = { has_variable = murder_feast_entourage_murder_var } #you've killed EVERYONE
+		scope:activity = {
+			add_activity_log_entry = {
+				key = murder_feast_entourage_kill_tt
+				tags = { completed }
+				character = scope:root_scope
+				show_in_conclusion = yes
+				score = 50
+				
+				root = {
+					add_dread = 35
+					add_character_modifier = {
+						modifier = murder_feast_great_murderer_modifier
+						years = 15
+					}
+				}
+			}
+			# # Guest Opinion
+			every_attending_character = {
+				limit = {
+					NOR = {
+						has_trait = torturer
+						has_trait = sadistic
+						has_trait = vengeful
+						has_trait = callous
+					}
+				}
+				custom = feast_every_guest
+				add_opinion = {
+					modifier = suspicion_opinion
+					target = scope:host
+					opinion = -10
+				}
+			}
+		}
+	}
+	else = { #Rewards for a "normal" feast
+		if = { #if you failed your attempt it doesn't look great
+			limit = { has_variable = murder_feast_murder_failure_var }
+			scope:activity = {
+				add_activity_log_entry = {
+					key = murder_feast_failed_tt
+					tags = { completed }
+					character = scope:root_scope
+					show_in_conclusion = yes
+					score = 50
+					
+					root = { add_prestige = minor_prestige_loss }
+				}
+			}
+		}
+		else_if = { #if you've killed your target you get these
+			limit = { NOT = { has_variable = murder_feast_murder_failure_var } }
+			scope:activity = {
+				add_activity_log_entry = {
+					key = murder_feast_solo_kill_tt
+					tags = { completed }
+					character = scope:root_scope
+					show_in_conclusion = yes
+					score = 50
+					
+					root = {
+						add_dread = 25
+						add_character_modifier = {
+							modifier = murder_feast_murderer_modifier
+							years = 10
+						}
+					}
+				}
+				# # Guest Opinion
+				every_attending_character = {
+					limit = {
+						NOR = {
+							has_trait = torturer
+							has_trait = sadistic
+							has_trait = vengeful
+							has_trait = callous
+						}
+					}
+					custom = feast_every_guest
+					add_opinion = {
+						modifier = suspicion_opinion
+						target = scope:host
+						opinion = -5
+					}
+				}
+			}
+		}
+		# Rewards based on Activity Options
+		# Smaller than regular feasts for reasons apparent
+	
+		# Number of courses
+		if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = feast_option_courses
+						option = feast_courses_good
+					}
+				}
+			}
+			custom_tooltip = courses_good_reward_tt
+			scope:activity = {
+				add_activity_log_entry = {
+					key = courses_good_reward_tt
+					tags = { completed }
+					character = scope:root_scope
+					show_in_conclusion = yes
+					score = 50
+					
+					# Effects
+					root = {
+						# Host Rewards
+						
+						# Courtly Vassal Opinion
+						every_vassal_or_below = {
+							limit = {
+								has_vassal_stance = courtly
+								is_participant_in_activity = scope:activity
+							}
+							custom = every_courtly_vassal
+							add_opinion = {
+								modifier = hosted_feast_opinion
+								target = root
+								opinion = 15
+							}
+						}
+						# Vassal Opinion
+						scope:activity = {
+							every_attending_character = {
+								limit = { NOT = { this = root } }
+								custom = custom.every_attending_character
+								add_opinion = {
+									target = root
+									modifier = impressed_opinion
+									opinion = 10
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = feast_option_courses
+						option = feast_courses_normal
+					}
+				}
+			}
+			custom_tooltip = courses_normal_reward_tt
+			scope:activity = {
+				add_activity_log_entry = {
+					key = courses_normal_reward_tt
+					tags = { completed }
+					character = scope:root_scope
+					show_in_conclusion = yes
+					score = 50
+					
+					# Effects
+					root = {
+						# Host Rewards
+						
+						# Courtly Vassal Opinion
+						every_vassal_or_below = {
+							limit = {
+								has_vassal_stance = courtly
+								is_participant_in_activity = scope:activity
+							}
+							custom = every_courtly_vassal
+							add_opinion = {
+								modifier = hosted_feast_opinion
+								target = root
+								opinion = 5
+							}
+						}
+						# Vassal Opinion
+						scope:activity = {
+							every_attending_character = {
+								limit = { NOT = { this = root } }
+								custom = custom.every_attending_character
+								add_opinion = {
+									target = root
+									modifier = impressed_opinion
+									opinion = 5
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		# Dish complexity
+		if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = feast_option_food
+						option = feast_food_good
+					}
+				}
+			}
+			custom_tooltip = food_good_reward_tt
+			scope:activity = {
+				add_activity_log_entry = {
+					key = food_good_reward_tt
+					tags = { completed }
+					character = scope:root_scope
+					show_in_conclusion = yes
+					score = 50
+					
+					# Effects
+					root = {
+						# Host Rewards
+						add_prestige = 100
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				scope:activity = {
+					has_activity_option = {
+						category = feast_option_food
+						option = feast_food_normal
+					}
+				}
+			}
+			custom_tooltip = food_normal_reward_tt
+			scope:activity = {
+				add_activity_log_entry = {
+					key = food_normal_reward_tt
+					tags = { completed }
+					character = scope:root_scope
+					show_in_conclusion = yes
+					score = 50
+					
+					# Effects
+					root = {
+						# Host Rewards
+						add_prestige = 50
+					}
+				}
+			}
+		}
+	}
+	# Stress loss according to traits in the ending event
+}

@@ -1,0 +1,50 @@
+﻿virtuous_feast = {
+	icon = courtly
+	is_valid = {
+		is_current_phase_active = yes
+		any_attending_character = {
+			is_physically_able_ai_adult = yes
+			location = scope:province
+			faith = {
+				OR = {
+					has_doctrine = tenet_ritual_hospitality
+					has_doctrine = tenet_ritual_celebrations
+					has_doctrine = mz_tenet_children_of_perun
+					has_doctrine = mz_tenet_animism
+				}
+			}
+		}
+	}
+
+	weight = {
+		value = 1
+	}
+
+	effect = {	
+		random_attending_character = {
+			limit = {
+				is_physically_able_ai_adult = yes
+				location = scope:province
+				faith = {
+					OR = {
+						has_doctrine = tenet_ritual_hospitality
+						has_doctrine = tenet_ritual_celebrations
+						has_doctrine = mz_tenet_children_of_perun
+						has_doctrine = mz_tenet_animism
+					}
+				}
+			}
+			save_scope_as = first
+		}
+		
+		add_activity_log_entry = {
+			key = virtuous_feast
+			tags = { pulse_action }
+			character = scope:first
+			
+			scope:first = {
+				add_piety = minor_piety_gain
+			}
+		}
+	}
+}

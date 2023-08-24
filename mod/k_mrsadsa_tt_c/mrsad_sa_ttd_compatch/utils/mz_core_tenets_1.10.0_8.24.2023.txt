@@ -1,7 +1,7 @@
 ﻿doctrine_core_tenets = {
 	group = "core_tenets"
 	number_of_picks = 3
-
+	# Note that some Paradox Bugs have been fixed; for Rite tenet and human sacrifice compatibility and an additional piety cost in Sun Worship and Cthonic Redoubts
 	############################
 	# Christian Faith Tenets	#
 	############################
@@ -201,6 +201,30 @@
 			}
 		}
 
+		name = {
+			first_valid = {
+				triggered_desc = {
+					trigger = {
+						religion_tag = judaism_religion
+					}
+					desc = tenet_communal_identity_chosen_people_name
+				}
+				desc = tenet_communal_identity_name
+			}
+		}
+
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = {
+						religion_tag = judaism_religion
+					}
+					desc = tenet_communal_identity_chosen_people_desc
+				}
+				desc = tenet_communal_identity_desc
+			}
+		}
+
 		can_pick = {
 			always = yes
 		}
@@ -336,7 +360,7 @@
 		}
 	}
 
-	# tenet_divine_marriage now a doctrine
+	#tenet_divine_marriage now a doctrine
 
 	tenet_gnosticism = {
 		icon = core_tenet_gnosticism
@@ -857,9 +881,9 @@
 					}
 					# ... or cannibal-HoF thinks you need to chill the hell out whilst they eat this dude.
 					AND = {
-						doctrine:tenet_ritual_cannibalism = { is_in_list = selected_doctrines }
+						religious_head.faith = { has_doctrine = tenet_ritual_cannibalism }						
 						NOT = {
-							religious_head.faith = { has_doctrine = tenet_ritual_cannibalism }
+							doctrine:tenet_ritual_cannibalism = { is_in_list = selected_doctrines }
 						}
 					}
 				}
@@ -1027,6 +1051,30 @@
 			}
 		}
 
+		name = {
+			first_valid = {
+				triggered_desc = {
+					trigger = {
+						religion_tag = judaism_religion
+					}
+					desc = tenet_esotericism_kabbalah
+				}
+				desc = tenet_esotericism_name
+			}
+		}
+
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = {
+						religion_tag = judaism_religion
+					}
+					desc = tenet_esotericism_kabbalah_desc
+				}
+				desc = tenet_esotericism_desc
+			}
+		}
+
 		parameters = {
 			tenet_esotericism_mystic_education = yes
 		}
@@ -1113,6 +1161,7 @@
 			virtues = {
 				education_learning_3
 				education_learning_4
+				education_learning_5
 				scholar
 			}
 		}
@@ -1157,7 +1206,10 @@
 
 		is_shown = {
 			NOR = {
-				religion_tag = christianity_religion
+				AND = {
+					religion_tag = christianity_religion
+					NOT = { this = faith:cathar }
+				}
 				religion_tag = judaism_religion
 				religion_tag = zoroastrianism_religion
 			}
@@ -1271,6 +1323,12 @@
 						religion_tag = islam_religion
 					}
 					desc = tenet_temporal_condemnation_taqiya
+				}
+				triggered_desc = {
+					trigger = {
+						religion_tag = judaism_religion
+					}
+					desc = tenet_anusim
 				}
 				desc = tenet_false_conversion_sanction_name
 			}
@@ -1663,7 +1721,7 @@
 				text = mz_incompatible_tenet_animism_trigger
 				NOT = { doctrine:mz_tenet_animism = { is_in_list = selected_doctrines } }
 			}
-		}		
+		}
 
 		parameters = {
 			spirit_possession_active = yes
@@ -1704,7 +1762,7 @@
 				text = mz_incompatible_tenet_kirat_shamanism_trigger
 				NOT = { doctrine:mz_tenet_kirat_shamanism = { is_in_list = selected_doctrines } }
 			}
-		}		
+		}
 
 		parameters = {
 			increased_dynasty_prestige_birth_mult = 1
@@ -1761,7 +1819,7 @@
 				text = mz_incompatible_tenet_hsexje_unity_trigger
 				NOT = { doctrine:mz_tenet_hsexje_unity = { is_in_list = selected_doctrines } }
 			}
-		}		
+		}
 
 		parameters = {
 			divine_the_stars_active = yes
@@ -1939,7 +1997,7 @@
 				text = mz_incompatible_tenet_magyar_shamanism_trigger
 				NOT = { doctrine:mz_tenet_magyar_shamanism = { is_in_list = selected_doctrines } }
 			}
-		}		
+		}
 
 		parameters = {
 			mystic_birthright_active = yes
@@ -1984,7 +2042,7 @@
 				text = mz_incompatible_tenet_animism_trigger
 				NOT = { doctrine:mz_tenet_animism = { is_in_list = selected_doctrines } }
 			}
-		}		
+		}
 
 		parameters = {
 			piety_from_feasts_active = yes
@@ -2047,7 +2105,7 @@
 		}
 	}
 
-	# tenet_sanctity_of_nature find at end of doc
+	#tenet_sanctity_of_nature now at end of doc
 
 	tenet_sky_burials = {
 		icon = core_tenet_sky_burials
@@ -2348,7 +2406,7 @@
 	# Syncretic Faith Tenets	#
 	#############################
 
-	# Now doctrine
+	# All moved to doctrines
 
 	#############################
 	# Custom Faith Tenets		#
@@ -2619,7 +2677,7 @@
 		}
 	}
 
-	# tenet_polyamory now marriage doctrine
+	#tenet_polyamory now a doctrine
 	
 	tenet_sacrificial_ceremonies = {
 		icon = core_tenet_human_sacrifice

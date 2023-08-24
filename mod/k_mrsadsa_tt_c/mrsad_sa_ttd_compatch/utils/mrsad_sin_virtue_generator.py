@@ -3,7 +3,7 @@ import regex
 import os.path
 #Text files to get Sin / Virtues from
 trait_sources=["E:\\SteamLibrary\\SteamApps\\common\\Crusader Kings III\\game\\common\\traits\\00_traits.txt"]
-tenets_source = "mz_core_tenets_1.9.2_5.30.2023.txt"
+tenets_source = "mz_core_tenets_1.10.0_8.24.2023.txt"
 
 doctrine_output_folder="..\\common\\religion\\doctrines"
 events_output_folder="..\\events\\religion_events\\"
@@ -57,7 +57,7 @@ trait_group_equivalent_sin_blacklist = []
 
 trait_regex=r"(?P<trait_name>[a-z][a-z_1-9]*+) ?= ?(?P<trait_description>\{[^}{]*+(?:(?P>trait_description)[^}{]*)*+\})"
 standard_values_regex=r"(?P<sv_name>@[a-z][a-z_1-9]*+) ? = ?(?P<sv_value>-?[0-9]+)" 
-trait_parameter_regex = r"(?P<trait_parameter_name>[a-z][a-z_1-9]*+) ?= ?((?P<trait_parameter_desc_c>\{[^}{]*+(?:(?P>trait_parameter_desc_c)[^}{]*)*+\})|(?P<trait_parameter_desc_s>.*+\n))"
+trait_parameter_regex = r"(?<!#.*)(?P<trait_parameter_name>[a-z][a-z_1-9]*+) ?= ?((?P<trait_parameter_desc_c>\{[^}{]*+(?:(?P>trait_parameter_desc_c)[^}{]*)*+\})|(?P<trait_parameter_desc_s>.*+\n))"
 slot_picks_regex=r"(?P<sp_name>number_of_picks) ? = ?(?P<sp_value>[0-9]+)" 
 
 
@@ -251,16 +251,17 @@ def main():
                                         for parameter in traits[trait]["parameters"]:
                                             if parameter["name"] == "level":
                                                 level = parameter["value"] 
-                                            if parameter["name"] == "lifestyle":
-                                                lifestyle = parameter["value"]
                                             if parameter["name"] == "genetic":
                                                 genetic = parameter["value"]
-                                            if parameter["name"] == "education":
-                                                education = parameter["value"]
-                                        if not lifestyle: #Lifestyle traits can level up, so they can convey things about attitudes to learning / hubris / etc so no restrictions (also in vanilla these are all 3 levels so can't have silly things like 2/4 or 1/3) 
-                                            f.write( "\t" + "\t" + "\t" +"custom_description = {" + "\n")
-                                            f.write( "\t" + "\t" + "\t" + "\t" +"text = doctrine_requires_sequential_traits_"+doctrine_type+"_trigger" +"\n" )
-                                            if max(trait_groups[trait_group]["levels"].keys()) == 3: #3 Levels, fixed
+                                            if parameter["name"] == "category":
+                                                if parameter["value"] == "lifestyle":
+                                                    lifestyle = True 
+                                                if parameter["value"] == "education":
+                                                    education = True
+                                        if not education: #Lifestyle was deprecated by the trait updgrade system, however 1.10 introduced levelling to the education group 
+                                            if max(trait_groups[trait_group]["levels"].keys()) == 3: #3 Levels, fixed #Levelled Congenital Traits
+                                                f.write( "\t" + "\t" + "\t" +"custom_description = {" + "\n")
+                                                f.write( "\t" + "\t" + "\t" + "\t" +"text = doctrine_requires_sequential_traits_"+doctrine_type+"_trigger" +"\n" )
                                                 if level == 1:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines } }" + "\n")
@@ -276,7 +277,10 @@ def main():
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOT = { doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + " = { is_in_list = selected_doctrines } }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
-                                            elif max(trait_groups[trait_group]["levels"].keys()) == 4: #4 Levels, fixed
+                                                f.write( "\t" + "\t" +  "\t" +"}" + "\n")
+                                            elif max(trait_groups[trait_group]["levels"].keys()) == 4: #4 Levels, fixed (mostly deprecated by 1.10 but Republican Knowledge still behaves as a Fixed "Education" Trait)
+                                                f.write( "\t" + "\t" + "\t" +"custom_description = {" + "\n")
+                                                f.write( "\t" + "\t" + "\t" + "\t" +"text = doctrine_requires_sequential_traits_"+doctrine_type+"_trigger" +"\n" )
                                                 if level == 1:
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOR = {" +  "\n")
@@ -303,7 +307,47 @@ def main():
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "}" +  "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
                                                     f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
-                                            f.write( "\t" + "\t" +  "\t" +"}" + "\n")
+                                                f.write( "\t" + "\t" +  "\t" +"}" + "\n")
+                                        #Can't think of a good rule for 5 level education traits that can be increaed. Even seemingly silly stuff like 2/4 can potentially say *something* about beliefs
+                                        # elif education:                                      
+                                            # if max(trait_groups[trait_group]["levels"].keys()) == 5: #5 Levels, (can now be upgraded by further education so can say stuff so looser in that sense but also have to check for silly stuff 1/3) # Can start with any single trait, can always add either 1 or 5 or the neigbour of any existing trait. 
+                                                # f.write( "\t" + "\t" + "\t" +"custom_description = {" + "\n")
+                                                # f.write( "\t" + "\t" + "\t" + "\t" +"text = doctrine_requires_sequential_traits_"+doctrine_type+"_trigger" +"\n" )  
+                                                # if level == 1:
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOR = {" +  "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][4] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "}" +  "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
+                                                # if level == 2:
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
+                                                # if level == 3:
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][4] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
+                                                # if level == 4:
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOR = {" +  "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "}" +  "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")
+                                                # if level == 5:
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "OR = {" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "NOR = {" +  "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][1] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type + "_" + trait_groups[trait_group]["levels"][2] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "}" +  "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "\t" + "doctrine:doctrine_" + doctrine_type+ "_" + trait_groups[trait_group]["levels"][3] + strength[0][1] + " = { is_in_list = selected_doctrines }" + "\n")
+                                                    # f.write( "\t" + "\t" + "\t" + "\t" + "}" + "\n")                                                    
+                                                # f.write( "\t" + "\t" +  "\t" +"}" + "\n")
                                         
                                         #f.write( "\t"+ "\t" + "\t" + "AND = {" + "\n") 
                                         #f.write( "\t"+ "\t" + "\t" + "NOT = { doctrine:" + "doctrine_" + doctrine_type+ "_" + trait_group + "_strong" + " = { is_in_list = selected_doctrines } }" + "\n") #Not strong group

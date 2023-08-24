@@ -1,0 +1,13 @@
+﻿mozarabic_break_with_rome_decision_pluralist_path_scripted_effect = { # Adjusted to account for doctrine/tenet changes.
+	# Set the doctrinal alterations.
+	faith = {
+		# First, we remove the Rite tenet & replace it with Islamic Syncretism.
+		remove_doctrine = tenet_rite
+		remove_doctrine = doctrine_mz_no_syncretism
+		add_doctrine = tenet_monasticism
+		add_doctrine = tenet_islamic_syncretism
+		# Then, since we're staying pluralist, we make the court chaplain fireable (since you've *really* localised power now).
+		remove_doctrine = doctrine_clerical_succession_spiritual_fixed_appointment
+		add_doctrine = doctrine_clerical_succession_temporal_appointment
+	}
+}

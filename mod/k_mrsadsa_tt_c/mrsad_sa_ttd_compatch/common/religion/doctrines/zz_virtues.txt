@@ -27,16 +27,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_intrigue_3 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_intrigue_4 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_intrigue_2 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -70,16 +60,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_intrigue_3_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_intrigue_4_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_intrigue_2_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -120,13 +100,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_intrigue_1 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_intrigue_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -160,13 +133,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_intrigue_1_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_intrigue_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -207,13 +173,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_intrigue_2 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_intrigue_4 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -247,13 +206,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_intrigue_2_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_intrigue_4_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -294,16 +246,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_intrigue_1 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_intrigue_2 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_intrigue_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -338,16 +280,6 @@
 		can_pick = {
 			always = yes
 			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_intrigue_1_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_intrigue_2_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_intrigue_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
-			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_intrigue_4 = { is_in_list = selected_doctrines }
@@ -358,6 +290,79 @@
 		traits = {
 			virtues = {
 				education_intrigue_4 = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_intrigue_5 = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_intrigue_5_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_intrigue_5_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_intrigue_5 }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_intrigue_5 = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				education_intrigue_5 = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_intrigue_5_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_intrigue_5_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_intrigue_5_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_intrigue_5_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_intrigue_5_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_education_intrigue_5 = { is_in_list = selected_doctrines }
+					doctrine:doctrine_virtue_education_intrigue = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				education_intrigue_5 = { scale = 2 weight = 5 }
 			}
 		}
 	} 
@@ -387,16 +392,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_diplomacy_3 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_diplomacy_4 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_diplomacy_2 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -430,16 +425,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_diplomacy_3_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_diplomacy_4_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_diplomacy_2_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -480,13 +465,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_diplomacy_1 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_diplomacy_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -520,13 +498,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_diplomacy_1_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_diplomacy_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -567,13 +538,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_diplomacy_2 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_diplomacy_4 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -607,13 +571,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_diplomacy_2_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_diplomacy_4_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -654,16 +611,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_diplomacy_1 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_diplomacy_2 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_diplomacy_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -698,16 +645,6 @@
 		can_pick = {
 			always = yes
 			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_diplomacy_1_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_diplomacy_2_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_diplomacy_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
-			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_diplomacy_4 = { is_in_list = selected_doctrines }
@@ -718,6 +655,79 @@
 		traits = {
 			virtues = {
 				education_diplomacy_4 = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_diplomacy_5 = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_diplomacy_5_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_diplomacy_5_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_diplomacy_5 }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_diplomacy_5 = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				education_diplomacy_5 = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_diplomacy_5_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_diplomacy_5_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_diplomacy_5_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_diplomacy_5_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_diplomacy_5_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_education_diplomacy_5 = { is_in_list = selected_doctrines }
+					doctrine:doctrine_virtue_education_diplomacy = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				education_diplomacy_5 = { scale = 2 weight = 5 }
 			}
 		}
 	} 
@@ -747,16 +757,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_stewardship_3 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_stewardship_4 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_stewardship_2 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -790,16 +790,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_stewardship_3_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_stewardship_4_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_stewardship_2_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -840,13 +830,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_stewardship_1 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_stewardship_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -880,13 +863,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_stewardship_1_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_stewardship_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -927,13 +903,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_stewardship_2 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_stewardship_4 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -967,13 +936,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_stewardship_2_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_stewardship_4_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -1014,16 +976,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_stewardship_1 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_stewardship_2 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_stewardship_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1058,16 +1010,6 @@
 		can_pick = {
 			always = yes
 			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_stewardship_1_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_stewardship_2_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_stewardship_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
-			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_stewardship_4 = { is_in_list = selected_doctrines }
@@ -1078,6 +1020,79 @@
 		traits = {
 			virtues = {
 				education_stewardship_4 = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_stewardship_5 = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_stewardship_5_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_stewardship_5_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_stewardship_5 }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_stewardship_5 = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				education_stewardship_5 = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_stewardship_5_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_stewardship_5_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_stewardship_5_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_stewardship_5_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_stewardship_5_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_education_stewardship_5 = { is_in_list = selected_doctrines }
+					doctrine:doctrine_virtue_education_stewardship = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				education_stewardship_5 = { scale = 2 weight = 5 }
 			}
 		}
 	} 
@@ -1107,16 +1122,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_martial_3 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_martial_4 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_martial_2 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1150,16 +1155,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_martial_3_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_martial_4_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_martial_2_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -1200,13 +1195,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_martial_1 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_martial_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1240,13 +1228,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_martial_1_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_martial_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -1287,13 +1268,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_martial_2 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_martial_4 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1327,13 +1301,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_martial_2_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_martial_4_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -1374,16 +1341,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_martial_1 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_martial_2 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_martial_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1418,16 +1375,6 @@
 		can_pick = {
 			always = yes
 			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_martial_1_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_martial_2_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_martial_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
-			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_martial_4 = { is_in_list = selected_doctrines }
@@ -1438,6 +1385,79 @@
 		traits = {
 			virtues = {
 				education_martial_4 = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_martial_5 = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_martial_5_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_martial_5_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_martial_5 }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_martial_5 = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				education_martial_5 = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_martial_5_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_martial_5_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_martial_5_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_martial_5_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_martial_5_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_education_martial_5 = { is_in_list = selected_doctrines }
+					doctrine:doctrine_virtue_education_martial = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				education_martial_5 = { scale = 2 weight = 5 }
 			}
 		}
 	} 
@@ -1467,16 +1487,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_learning_3 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_learning_4 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_learning_2 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1510,16 +1520,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_learning_3_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_learning_4_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_learning_2_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -1560,13 +1560,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_learning_1 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_learning_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1600,13 +1593,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_learning_1_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_learning_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -1647,13 +1633,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_learning_2 = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_learning_4 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1687,13 +1666,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					doctrine:doctrine_virtue_education_learning_2_strong = { is_in_list = selected_doctrines }
-					doctrine:doctrine_virtue_education_learning_4_strong = { is_in_list = selected_doctrines }
-				}
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -1734,16 +1706,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_learning_1 = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_learning_2 = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_learning_3 = { is_in_list = selected_doctrines }
-				}
-			}
 		}
 		traits = {
 			virtues = {
@@ -1778,16 +1740,6 @@
 		can_pick = {
 			always = yes
 			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-				OR = {
-					NOR = {
-						doctrine:doctrine_virtue_education_learning_1_strong = { is_in_list = selected_doctrines }
-						doctrine:doctrine_virtue_education_learning_2_strong = { is_in_list = selected_doctrines }
-					}
-					doctrine:doctrine_virtue_education_learning_3_strong = { is_in_list = selected_doctrines }
-				}
-			}
-			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_learning_4 = { is_in_list = selected_doctrines }
@@ -1798,6 +1750,79 @@
 		traits = {
 			virtues = {
 				education_learning_4 = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_learning_5 = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_learning_5_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_learning_5_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_learning_5 }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_learning_5 = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				education_learning_5 = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_education_learning_5_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_education_learning_5_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_education_learning_5_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 150
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_education_learning_5_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_education_learning_5_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_education_learning_5 = { is_in_list = selected_doctrines }
+					doctrine:doctrine_virtue_education_learning = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				education_learning_5 = { scale = 2 weight = 5 }
 			}
 		}
 	} 
@@ -5758,6 +5783,78 @@
 		traits = {
 			virtues = {
 				fickle = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_eccentric = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_eccentric_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_eccentric_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = -25
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_eccentric }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_eccentric = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				eccentric = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_eccentric_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_eccentric_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_eccentric_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = -25
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_eccentric_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_eccentric_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_eccentric = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				eccentric = { scale = 2 weight = 5 }
 			}
 		}
 	} 
@@ -12655,9 +12752,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -12690,9 +12784,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -12732,9 +12823,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -12767,9 +12855,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15184,9 +15269,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15220,9 +15302,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15263,9 +15342,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15299,9 +15375,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15342,9 +15415,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15378,9 +15448,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15421,9 +15488,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15457,9 +15521,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15500,9 +15561,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15536,9 +15594,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15579,9 +15634,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15615,9 +15667,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15658,9 +15707,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15694,9 +15740,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15737,9 +15780,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15773,9 +15813,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15816,9 +15853,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15852,9 +15886,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -15895,9 +15926,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 		}
 		traits = {
 			virtues = {
@@ -15931,9 +15959,6 @@
 		}
 		can_pick = {
 			always = yes
-			custom_description = {
-				text = doctrine_requires_sequential_traits_virtue_trigger
-			}
 			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
@@ -16466,8 +16491,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_intrigue }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -16519,6 +16544,16 @@
  					}
  				}
 			}
+			custom_description = {
+				text = doctrine_incompatible_weak_virtue_trigger
+				OR = {
+					NOT = { doctrine:doctrine_virtue_education_intrigue_5 = { is_in_list = selected_doctrines } }
+					OR = {
+						doctrine:doctrine_virtue_education_intrigue_5_strong = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_intrigue_strong = { is_in_list = selected_doctrines }
+ 					}
+ 				}
+			}
 		}
 		traits = {
 			virtues = {
@@ -16540,8 +16575,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_intrigue_strong }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -16598,6 +16633,17 @@
 				}
 			}
 			custom_description = {
+				text = doctrine_incompatible_strong_virtue_trigger
+				NOT = { doctrine:doctrine_virtue_education_intrigue_5_strong = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = doctrine_incompatible_weak_sin_trigger
+				OR = {
+					NOT = { doctrine:doctrine_sin_education_intrigue_5 = { is_in_list = selected_doctrines } }
+					doctrine:doctrine_sin_education_intrigue_5_strong = { is_in_list = selected_doctrines }
+				}
+			}
+			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_intrigue = { is_in_list = selected_doctrines }
@@ -16606,6 +16652,7 @@
 						doctrine:doctrine_virtue_education_intrigue_2 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_intrigue_3 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_intrigue_4 = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_intrigue_5 = { is_in_list = selected_doctrines }
 					}
 				}
 			}
@@ -16630,8 +16677,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_diplomacy }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -16683,6 +16730,16 @@
  					}
  				}
 			}
+			custom_description = {
+				text = doctrine_incompatible_weak_virtue_trigger
+				OR = {
+					NOT = { doctrine:doctrine_virtue_education_diplomacy_5 = { is_in_list = selected_doctrines } }
+					OR = {
+						doctrine:doctrine_virtue_education_diplomacy_5_strong = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_diplomacy_strong = { is_in_list = selected_doctrines }
+ 					}
+ 				}
+			}
 		}
 		traits = {
 			virtues = {
@@ -16704,8 +16761,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_diplomacy_strong }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -16762,6 +16819,17 @@
 				}
 			}
 			custom_description = {
+				text = doctrine_incompatible_strong_virtue_trigger
+				NOT = { doctrine:doctrine_virtue_education_diplomacy_5_strong = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = doctrine_incompatible_weak_sin_trigger
+				OR = {
+					NOT = { doctrine:doctrine_sin_education_diplomacy_5 = { is_in_list = selected_doctrines } }
+					doctrine:doctrine_sin_education_diplomacy_5_strong = { is_in_list = selected_doctrines }
+				}
+			}
+			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_diplomacy = { is_in_list = selected_doctrines }
@@ -16770,6 +16838,7 @@
 						doctrine:doctrine_virtue_education_diplomacy_2 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_diplomacy_3 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_diplomacy_4 = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_diplomacy_5 = { is_in_list = selected_doctrines }
 					}
 				}
 			}
@@ -16794,8 +16863,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_stewardship }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -16847,6 +16916,16 @@
  					}
  				}
 			}
+			custom_description = {
+				text = doctrine_incompatible_weak_virtue_trigger
+				OR = {
+					NOT = { doctrine:doctrine_virtue_education_stewardship_5 = { is_in_list = selected_doctrines } }
+					OR = {
+						doctrine:doctrine_virtue_education_stewardship_5_strong = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_stewardship_strong = { is_in_list = selected_doctrines }
+ 					}
+ 				}
+			}
 		}
 		traits = {
 			virtues = {
@@ -16868,8 +16947,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_stewardship_strong }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -16926,6 +17005,17 @@
 				}
 			}
 			custom_description = {
+				text = doctrine_incompatible_strong_virtue_trigger
+				NOT = { doctrine:doctrine_virtue_education_stewardship_5_strong = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = doctrine_incompatible_weak_sin_trigger
+				OR = {
+					NOT = { doctrine:doctrine_sin_education_stewardship_5 = { is_in_list = selected_doctrines } }
+					doctrine:doctrine_sin_education_stewardship_5_strong = { is_in_list = selected_doctrines }
+				}
+			}
+			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_stewardship = { is_in_list = selected_doctrines }
@@ -16934,6 +17024,7 @@
 						doctrine:doctrine_virtue_education_stewardship_2 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_stewardship_3 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_stewardship_4 = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_stewardship_5 = { is_in_list = selected_doctrines }
 					}
 				}
 			}
@@ -16958,8 +17049,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_martial }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -17011,6 +17102,16 @@
  					}
  				}
 			}
+			custom_description = {
+				text = doctrine_incompatible_weak_virtue_trigger
+				OR = {
+					NOT = { doctrine:doctrine_virtue_education_martial_5 = { is_in_list = selected_doctrines } }
+					OR = {
+						doctrine:doctrine_virtue_education_martial_5_strong = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_martial_strong = { is_in_list = selected_doctrines }
+ 					}
+ 				}
+			}
 		}
 		traits = {
 			virtues = {
@@ -17032,8 +17133,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_martial_strong }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -17090,6 +17191,17 @@
 				}
 			}
 			custom_description = {
+				text = doctrine_incompatible_strong_virtue_trigger
+				NOT = { doctrine:doctrine_virtue_education_martial_5_strong = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = doctrine_incompatible_weak_sin_trigger
+				OR = {
+					NOT = { doctrine:doctrine_sin_education_martial_5 = { is_in_list = selected_doctrines } }
+					doctrine:doctrine_sin_education_martial_5_strong = { is_in_list = selected_doctrines }
+				}
+			}
+			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_martial = { is_in_list = selected_doctrines }
@@ -17098,6 +17210,7 @@
 						doctrine:doctrine_virtue_education_martial_2 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_martial_3 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_martial_4 = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_martial_5 = { is_in_list = selected_doctrines }
 					}
 				}
 			}
@@ -17122,8 +17235,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_learning }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -17175,6 +17288,16 @@
  					}
  				}
 			}
+			custom_description = {
+				text = doctrine_incompatible_weak_virtue_trigger
+				OR = {
+					NOT = { doctrine:doctrine_virtue_education_learning_5 = { is_in_list = selected_doctrines } }
+					OR = {
+						doctrine:doctrine_virtue_education_learning_5_strong = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_learning_strong = { is_in_list = selected_doctrines }
+ 					}
+ 				}
+			}
 		}
 		traits = {
 			virtues = {
@@ -17196,8 +17319,8 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			multiply = 4
-			add = 140
+			multiply = 5
+			add = 290
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_education_learning_strong }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -17254,6 +17377,17 @@
 				}
 			}
 			custom_description = {
+				text = doctrine_incompatible_strong_virtue_trigger
+				NOT = { doctrine:doctrine_virtue_education_learning_5_strong = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = doctrine_incompatible_weak_sin_trigger
+				OR = {
+					NOT = { doctrine:doctrine_sin_education_learning_5 = { is_in_list = selected_doctrines } }
+					doctrine:doctrine_sin_education_learning_5_strong = { is_in_list = selected_doctrines }
+				}
+			}
+			custom_description = {
 				text = doctrine_requires_virtue_trigger
 				OR = {
 					doctrine:doctrine_virtue_education_learning = { is_in_list = selected_doctrines }
@@ -17262,6 +17396,7 @@
 						doctrine:doctrine_virtue_education_learning_2 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_learning_3 = { is_in_list = selected_doctrines }
 						doctrine:doctrine_virtue_education_learning_4 = { is_in_list = selected_doctrines }
+						doctrine:doctrine_virtue_education_learning_5 = { is_in_list = selected_doctrines }
 					}
 				}
 			}
