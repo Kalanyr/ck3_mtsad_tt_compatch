@@ -5800,7 +5800,7 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			add = -25
+			add = 15
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_eccentric }
 				multiply = faith_unchanged_doctrine_cost_mult
@@ -5833,7 +5833,7 @@
 		}
 		piety_cost = {
 			value = faith_doctrine_cost_low
-			add = -25
+			add = 15
 			if = {
 				limit = { has_doctrine =  doctrine_virtue_eccentric_strong }
 				multiply = faith_unchanged_doctrine_cost_mult

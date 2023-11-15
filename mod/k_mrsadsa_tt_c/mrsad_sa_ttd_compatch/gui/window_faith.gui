@@ -371,42 +371,28 @@ window = {
 									}
 								}
 
-								widget = {
-									size = { 250 40 }
-									scrollbox = {
-										layoutpolicy_vertical = expanding
+								vbox = {
+									dynamicgridbox = {
+										name = "sins_grid"
+										datamodel = "[FaithWindow.GetSins]"
+										flipdirection = yes
+										datamodel_wrap = 6
 
-										size = { 250 50 }
-										#margin = { 0 0 }
-										#margin_top = 5
-										#spacing = 10
+										item = {
+											icon = {
+												datacontext = "[GuiVirtueOrSinItem.GetTrait]"
+												size = { 40 40 }
+												alwaystransparent = yes
+												texture = "[Trait.GetIcon( GetPlayer )]"
 
-										blockoverride "scrollbox_content"
-										{
-											margin = { 0 0 }
-											dynamicgridbox = {
-												name = "virtues_grid"
-												datamodel = "[FaithWindow.GetSins]"
-												flipdirection = yes
-												datamodel_wrap = 6
+												tooltipwidget = {
+													using = faith_window_trait_tooltip
+												}
 
-												item = {
-													icon = {
-														datacontext = "[GuiVirtueOrSinItem.GetTrait]"
-														size = { 40 40 }
-														alwaystransparent = yes
-														texture = "[Trait.GetIcon( GetPlayer )]"
-
-														tooltipwidget = {
-															using = faith_window_trait_tooltip
-														}
-
-														block "tooltip_placement"
-														{
-															using = tooltip_ne
-															tooltip_offset = { 0 20 }
-														}
-													}
+												block "tooltip_placement"
+												{
+													using = tooltip_ne
+													tooltip_offset = { 0 20 }
 												}
 											}
 										}
@@ -440,42 +426,28 @@ window = {
 									}
 								}
 
-								widget = {
-									size = { 250 40 }
-									scrollbox = {
-										layoutpolicy_vertical = expanding
+								vbox = {
+									dynamicgridbox = {
+										name = "virtues_grid"
+										datamodel = "[FaithWindow.GetVirtues]"
+										flipdirection = yes
+										datamodel_wrap = 6
 
-										size = { 250 50 }
-										#margin = { 0 0 }
-										#margin_top = 5
-										#spacing = 10
+										item = {
+											icon = {
+												datacontext = "[GuiVirtueOrSinItem.GetTrait]"
+												size = { 40 40 }
+												alwaystransparent = yes
+												texture = "[Trait.GetIcon( GetPlayer )]"
 
-										blockoverride "scrollbox_content"
-										{
-											margin = { 0 0 }
-											dynamicgridbox = {
-												name = "virtues_grid"
-												datamodel = "[FaithWindow.GetVirtues]"
-												flipdirection = yes
-												datamodel_wrap = 6
+												tooltipwidget = {
+													using = faith_window_trait_tooltip
+												}
 
-												item = {
-													icon = {
-														datacontext = "[GuiVirtueOrSinItem.GetTrait]"
-														size = { 40 40 }
-														alwaystransparent = yes
-														texture = "[Trait.GetIcon( GetPlayer )]"
-
-														tooltipwidget = {
-															using = faith_window_trait_tooltip
-														}
-
-														block "tooltip_placement"
-														{
-															using = tooltip_ne
-															tooltip_offset = { 0 20 }
-														}
-													}
+												block "tooltip_placement"
+												{
+													using = tooltip_ne
+													tooltip_offset = { 0 20 }
 												}
 											}
 										}
@@ -918,7 +890,7 @@ window = {
 			}
 
 			hbox = {
-				#spacing = 10
+				spacing = 10
 				margin_bottom = 8
 				margin_top = 8
 				layoutpolicy_horizontal = expanding

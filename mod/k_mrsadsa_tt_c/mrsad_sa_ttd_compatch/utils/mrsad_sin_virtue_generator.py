@@ -2,8 +2,8 @@ import codecs
 import regex
 import os.path
 #Text files to get Sin / Virtues from
-trait_sources=["E:\\SteamLibrary\\SteamApps\\common\\Crusader Kings III\\game\\common\\traits\\00_traits.txt"]
-tenets_source = "mz_core_tenets_1.10.0_8.24.2023.txt"
+trait_sources=["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\traits\\00_traits.txt"]
+tenets_source = "mz_core_tenets_1.11.0_11_10_23_with_bugfixes.txt"
 
 doctrine_output_folder="..\\common\\religion\\doctrines"
 events_output_folder="..\\events\\religion_events\\"
@@ -34,9 +34,9 @@ virtue_sin_strength = [[["","","",""],[3,2],1],[["strong","_strong"," great", " 
 trait_blacklist_hidden = ["early_great_pox"] #Early Great Pox looks like lover's pox and should be treated identically. Special code adds both when Lover's Pox is selected
 trait_blacklist_crime_standard = ["adulterer","fornicator","incestuous","kinslayer_1","kinslayer_2","kinslayer_3","murderer","sodomite"] #Crime doctrines are implicitly sins (in vanilla) or virtues (if celebrated) and these ones do not appear if accepted.
 trait_blacklist_indistinguishable = ["depressed_1","depressed_genetic","lunatic_1","lunatic_genetic","possessed_1","possessed_genetic"] #All current Group Equivalents are genetic and non-genetic variants of the same mental trait, since there's no way to tell these apart in world block taking them individually.
-trait_blacklist_crime_special = ["cannibal","excommunicated"] #Cannibal is blacklisted gemerally (despite being a special crime doctrine that appears even if accepted ) becasue the Tenet that permits it also makes it a strong virtue already. #Makes no sense for excommunicated to be a sin on top of it's intrinsic nature and doesn't really work as a Virtue since it's not possible to have in faiths that might think it virtuous (ie ones without Communion).
+trait_blacklist_crime_special = ["cannibal","excommunicated","deviant","witch"] #Cannibal is blacklisted gemerally (despite being a special crime doctrine that appears even if accepted ) becasue the Tenet that permits it also makes it a strong virtue already. #Makes no sense for excommunicated to be a sin on top of it's intrinsic nature and doesn't really work as a Virtue since it's not possible to have in faiths that might think it virtuous (ie ones without Communion).#Witch and Deviant are not handled by Crime Doctrines
 trait_blacklist_unique = ["saoshyant","savior","chakravarti","greatest_of_khans"] #These are traits that only one person can have and so don't make sense as virtues/sins (they should be folded in with equivalent more general traits if relevant though (eg Descendant traits))
-trait_blacklist_religious = ["hajjaj","pilgrim","devoted","sayyid","saoshyant_descendant","divine_blood","blood_of_prophet","faith_warrior","saint","order_member","heresiarch","crusader_king","paragon","consecrated_blood"]  #These already have strong religious implications in ways that make them unfitting to be sins or virtues
+trait_blacklist_religious = ["hajjaj","pilgrim","devoted","sayyid","saoshyant_descendant","divine_blood","blood_of_prophet","faith_warrior","saint","order_member","heresiarch","crusader_king","paragon","consecrated_blood","fp3_struggle_detractor","fp3_struggle_supporter","extolled","decadent"]  #These already have strong religious implications in ways that make them unfitting to be sins or virtues
 trait_blacklist = []
 trait_blacklist.extend(trait_blacklist_hidden)
 trait_blacklist.extend(trait_blacklist_crime_standard)
@@ -48,10 +48,10 @@ trait_blacklist.extend(trait_blacklist_religious)
 
 trait_group_blacklist = ["kinslayer"]
 trait_group_equivalent_blacklist = []
-trait_virtue_blacklist = ["bastard","denounced","disinherited","witch","deviant"] #Bastard doesn't make sense as a virtue because it only appears if you have a negative doctrine. #Dynasty condemnation doesn't make sense as a virtue because it works based on scorn. #Witch is already handled by the game as a virtue. #As is Deviant (though it's perhaps too restricted)
+trait_virtue_blacklist = ["bastard","denounced","disinherited","witch","deviant"] #Bastard doesn't make sense as a virtue because it only appears if you have a negative doctrine. #Dynasty condemnation doesn't make sense as a virtue because it works based on scorn.
 trait_group_virtue_blacklist = []
 trait_group_equivalent_virtue_blacklist = []
-trait_sin_blacklist = ["deviant","witch","reincarnation","child_of_concubine_female","child_of_concubine_male"]  #Deviant, Witch & Cannibal are special crime doctrines that can appear even if accepted. So blacklist as sins (should be handled by Crime Doctrine) but allow as Virtues. #Reincaranted should not be a sin because it can only appears in faiths that should approve. #Child of Concubine should not be a sin because it only appears if Concubines are accepted.
+trait_sin_blacklist = ["reincarnation","child_of_concubine_female","child_of_concubine_male"]   #Reincaranted should not be a sin because it can only appears in faiths that should approve. #Child of Concubine should not be a sin because it only appears if Concubines are accepted.
 trait_group_sin_blacklist = ["child_of_concubine"] #Child of Concubine should not be a sin because only appears if Concubines are accepted
 trait_group_equivalent_sin_blacklist = []
 
