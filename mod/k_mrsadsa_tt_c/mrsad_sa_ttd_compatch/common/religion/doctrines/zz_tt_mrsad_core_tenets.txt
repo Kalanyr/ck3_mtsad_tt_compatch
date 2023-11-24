@@ -2437,7 +2437,15 @@
 		}
 
 		is_shown = {
-			religion_tag = zunism_religion
+			OR = {
+				religion_tag = zunism_religion
+				has_doctrine = tenet_sun_worship #If you already have it
+				AND = {
+					religion_tag = hinduism_religion
+					this = faith:saura #If you're into Saurism
+				}
+				
+			}
 		}
 
 		parameters = {

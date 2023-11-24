@@ -3,7 +3,7 @@ import regex
 import os.path
 #Text files to get Sin / Virtues from
 trait_sources=["C:\\Program Files (x86)\\Steam\\steamapps\\common\\Crusader Kings III\\game\\common\\traits\\00_traits.txt"]
-tenets_source = "mz_core_tenets_1.11.0_11_10_23_with_bugfixes.txt"
+tenets_source = "mz_core_tenets_1.11.1_11_10_23_with_bugfixes.txt"
 
 doctrine_output_folder="..\\common\\religion\\doctrines"
 events_output_folder="..\\events\\religion_events\\"
