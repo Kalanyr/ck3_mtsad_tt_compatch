@@ -8930,6 +8930,222 @@
 		}
 	} 
 
+	doctrine_virtue_measles = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_measles_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_measles_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_measles }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_measles = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				measles = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_measles_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_measles_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_measles_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_measles_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_measles_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_measles = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				measles = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_dysentery = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_dysentery_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_dysentery_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_dysentery }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_dysentery = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				dysentery = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_dysentery_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_dysentery_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_dysentery_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_dysentery_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_dysentery_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_dysentery = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				dysentery = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_ergotism = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_ergotism_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_ergotism_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_ergotism }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_ergotism = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				ergotism = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_ergotism_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_ergotism_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_ergotism_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_ergotism_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_ergotism_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_ergotism = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				ergotism = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
 	doctrine_virtue_sickly = {
 		name = {
 			first_valid = {
@@ -12292,6 +12508,78 @@
 		traits = {
 			virtues = {
 				celibate = { scale = 2 weight = 5 }
+			}
+		}
+	} 
+
+	doctrine_virtue_legend = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_legend_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_legend_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_legend }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_legend = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+		}
+		traits = {
+			virtues = {
+				legend = { scale = 1 weight = 3 }
+			}
+		}
+	} 
+
+	doctrine_virtue_legend_strong = {
+		name = {
+			first_valid = {
+				desc = doctrine_virtue_legend_strong_ingame_name
+			}
+		}
+		desc = {
+			first_valid = {
+				desc = doctrine_virtue_legend_strong_ingame_desc
+			}
+		}
+		piety_cost = {
+			value = faith_doctrine_cost_low
+			add = 0
+			if = {
+				limit = { has_doctrine =  doctrine_virtue_legend_strong }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = {
+			always = yes
+			NOT = { doctrine:doctrine_sin_legend_strong = { is_in_list = selected_doctrines } }
+		}
+		can_pick = {
+			always = yes
+			custom_description = {
+				text = doctrine_requires_virtue_trigger
+				OR = {
+					doctrine:doctrine_virtue_legend = { is_in_list = selected_doctrines }
+				}
+			}
+		}
+		traits = {
+			virtues = {
+				legend = { scale = 2 weight = 5 }
 			}
 		}
 	} 

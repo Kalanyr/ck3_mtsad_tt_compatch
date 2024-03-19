@@ -4,6 +4,7 @@
 
 window = {
 	name = "faith_window"
+	widgetid = "faith_window"
 	datacontext = "[FaithWindow.GetFaith]"
 	datacontext = "[GetVariableSystem]"
 	movable = no
@@ -399,46 +400,6 @@ window = {
 									}
 								}
 
-								#scrollbox = {
-									#layoutpolicy_vertical = expanding
-
-									#size = { 250 50 }
-									##margin = { 0 0 }
-									##margin_top = 5
-									##spacing = 10
-
-									#blockoverride "scrollbox_content"
-									#{
-										#margin = { 0 0 }
-										#dynamicgridbox = {
-											#name = "sins_grid"
-											#datamodel = "[FaithWindow.GetSins]"
-											#flipdirection = yes
-											#datamodel_wrap = 6
-
-											#item = {
-												#icon = {
-													#datacontext = "[GuiVirtueOrSinItem.GetTrait]"
-													#size = { 40 40 }
-													#alwaystransparent = yes
-													#texture = "[Trait.GetIcon( GetPlayer )]"
-
-													#tooltipwidget = {
-														#using = faith_window_trait_tooltip
-													#}
-
-													#block "tooltip_placement"
-													#{
-														#using = tooltip_ne
-														#tooltip_offset = { 0 20 }
-													#}
-												#}
-											#}
-										#}
-									#}
-								#}
-								
-
 								expand = {}
 							}
 
@@ -493,45 +454,6 @@ window = {
 										}
 									}
 								}
-
-								#scrollbox = {
-									#layoutpolicy_vertical = expanding
-
-									#size = { 250 50 }
-									##margin = { 0 0 }
-									##margin_top = 5
-									##spacing = 10
-
-									#blockoverride "scrollbox_content"
-									#{
-										#margin = { 0 0 }
-										#dynamicgridbox = {
-											#name = "virtues_grid"
-											#datamodel = "[FaithWindow.GetVirtues]"
-											#flipdirection = yes
-											#datamodel_wrap = 6
-
-											#item = {
-												#icon = {
-													#datacontext = "[GuiVirtueOrSinItem.GetTrait]"
-													#size = { 40 40 }
-													#alwaystransparent = yes
-													#texture = "[Trait.GetIcon( GetPlayer )]"
-
-													#tooltipwidget = {
-														#using = faith_window_trait_tooltip
-													#}
-
-													#block "tooltip_placement"
-													#{
-														#using = tooltip_ne
-														#tooltip_offset = { 0 20 }
-													#}
-												#}
-											#}
-										#}
-									#}
-								#}
 
 								expand = {}
 							}

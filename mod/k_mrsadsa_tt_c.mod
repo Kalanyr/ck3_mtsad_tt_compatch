@@ -7,5 +7,5 @@ tags={
 	"Alternative History"
 }
 name="MTSAD Stand Alone + Traditional Tenets Compatch"
-supported_version="1.11.*"
+supported_version="1.12.*"
 path="mod/k_mrsadsa_tt_c"
